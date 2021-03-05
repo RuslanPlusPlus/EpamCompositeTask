@@ -22,13 +22,11 @@ public class TextComposite implements TextComponent{
     @Override
     public void add(TextComponent component) {
         components.add(component);
-        logger.info(type + " component added");
     }
 
     @Override
     public void remove(TextComponent component) {
         components.remove(component);
-        logger.info(type + " component removed");
     }
 
     @Override
@@ -45,15 +43,18 @@ public class TextComposite implements TextComponent{
     }
 
     public String toString(){
-        // fix (add position check)
+        // fix (add position check), check LexemeParser
         StringBuilder builder = new StringBuilder();
         for (TextComponent component: components){
-            builder.append(component.toString());
             if (component.getType() == ComponentType.PARAGRAPH){
                 builder.append(NEW_LINE);
                 builder.append(TABULATION);
             }
+            builder.append(component.toString());
             if (component.getType() == ComponentType.SENTENCE){
+                builder.append(SPACE);
+            }
+            if (component.getType() == ComponentType.LEXEME){
                 builder.append(SPACE);
             }
         }

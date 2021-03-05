@@ -7,7 +7,7 @@ public enum ComponentType {
     LEXEME("Lexeme"),
     WORD("Word"),
     PUNCTUATION_MARK("Punctuation mark"),
-    SYMBOL("Symbol");
+    LETTER("Letter");
 
     private String value;
 
