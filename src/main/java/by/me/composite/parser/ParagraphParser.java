@@ -11,7 +11,7 @@ public class ParagraphParser implements TextComponentParser{
 
     static final Logger logger = LogManager.getLogger();
     private TextComponentParser sentenceParser = new SentenceParser();
-    static final String SENTENCE_DELIMITER = "(?<=[!?.{1,3}])\\s";
+    static final String SENTENCE_DELIMITER = "(?<=[!?.{3}])[\\s]";
 
     @Override
     public TextComponent parse(String text) throws CompositeException {

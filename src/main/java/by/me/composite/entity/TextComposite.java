@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class TextComposite implements TextComponent{
 
@@ -42,6 +44,15 @@ public class TextComposite implements TextComponent{
         return type;
     }
 
+    @Override
+    public List<TextComponent> getComponents() {
+        return Collections.unmodifiableList(components);
+    }
+
+    public void setComponents(List<TextComponent> components){
+        this.components = components;
+    }
+
     public String toString(){
         // fix (add position check), check LexemeParser
         StringBuilder builder = new StringBuilder();
@@ -51,13 +62,36 @@ public class TextComposite implements TextComponent{
                 builder.append(TABULATION);
             }
             builder.append(component.toString());
-            if (component.getType() == ComponentType.SENTENCE){
-                builder.append(SPACE);
-            }
             if (component.getType() == ComponentType.LEXEME){
                 builder.append(SPACE);
             }
         }
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+        TextComposite that = (TextComposite) o;
+        if (components == null || that.components == null){
+            return false;
+        }
+        return type == that.type &&
+                components.equals(that.components);
+
+    }
+
+    @Override
+    public int hashCode() {
+        final int hash = 31;
+        int result = 1;
+        result = hash * result + components.hashCode();
+        result = hash * result + type.hashCode();
+        return result;
     }
 }
